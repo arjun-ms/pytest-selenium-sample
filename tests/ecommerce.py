@@ -1,26 +1,26 @@
 import pytest
 from selenium.webdriver.common.by import By
-import sys
 from selenium.webdriver.common.action_chains import ActionChains
 
 @pytest.mark.usefixtures('driver')
+@pytest.mark.text
 def test_text(driver):
-    """
-    Verify a text in the page
-    :return: None
-    """
-    driver.get('https://ecommerce-playground.lambdatest.io/')
-    driver.implicitly_wait(10)
+        """
+        Verify a text in the page
+        :return: None
+        """
+        driver.get('https://ecommerce-playground.lambdatest.io/')
+        driver.implicitly_wait(10)
 
-    txt = "This is a dummy website for Web Automation Testing"
-    assert txt == driver.find_element(By.XPATH, "/html/body/div[1]/div[5]/header/div[3]/div[3]/div[1]/p/strong").text 
+        txt = "This is a dummy website for Web Automation Testing"
+        assert txt == driver.find_element(By.XPATH,
+                                        "/html/body/div[1]/div[5]/header/div[3]/div[3]/div[1]/p/strong"
+                                        ).text 
 
 @pytest.mark.usefixtures('driver')
+@pytest.mark.register
 def test_register(driver):
-    """
-    Verify registration
-    :return: None
-    """
+    
     driver.get('https://ecommerce-playground.lambdatest.io/index.php?route=account/register')
     
     first_name = driver.find_element(By.NAME, "firstname")
@@ -46,7 +46,6 @@ def test_register(driver):
     actions = ActionChains(driver)
     actions.move_to_element(agree).click().perform()
 
-
     submit = driver.find_element(By.XPATH, "//input[@value='Continue']")
     submit.click()
     
@@ -55,3 +54,4 @@ def test_register(driver):
     text = driver.find_element(By.XPATH, "/html/body/div[1]/div[5]/div[1]/div/div/h1").text
     
     assert text == "Your Account Has Been Created!"
+    
